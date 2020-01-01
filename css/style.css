@@ -1,0 +1,104 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+:root {
+    --font-size: 2rem;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+    margin: 0;
+    background-color: #f5fafd;
+
+    font-size: var(--font-size, 20px);
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+main, header, footer {
+  padding: 0 15px;
+}
+
+@media (min-width: 575.98px){
+  main, header, footer {
+    padding: 0 calc(50vw - 270px);
+  }
+}
+
+@media (min-width: 767.98px){
+  main, header, footer {
+    padding: 0 calc(50vw - 360px);
+  }
+}
+
+@media (min-width: 991.98px) {
+  main, header, footer {
+    padding: 0 calc(50vw - 480px);
+  }
+}
+
+@media (min-width: 1199.98px){
+  main, header, footer {
+    padding: 0 calc(50vw - 590px);
+  }
+}
+
+button {
+    position: relative;
+    display: block;
+    margin: 2em;
+    padding: 2rem 5rem;
+    border: none;
+    outline: none;
+    letter-spacing: .2em;
+    font-weight: bold;
+    background: #dfdfdf;
+    cursor: pointer;
+    overflow: hidden;
+    user-select: none;
+    border-radius: 2px;
+}
+
+.ripple {
+    position: absolute;
+    background: rgba(0, 0, 0, .15);
+    border-radius: 100%;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    pointer-events: none;
+}
+
+.ripple.show {
+    -webkit-animation: ripple .75s ease-out;
+            animation: ripple .75s ease-out;
+}
+
+@-webkit-keyframes ripple {
+    to {
+        -webkit-transform: scale(2);
+                transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    to {
+        -webkit-transform: scale(2);
+                transform: scale(2);
+        opacity: 0;
+    }
+}
