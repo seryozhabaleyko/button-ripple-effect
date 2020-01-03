@@ -1,26 +1,36 @@
-const rippleElement = document.querySelectorAll('.ripple-effect')
+const $ = el => document.querySelectorAll(el)
 
-function rippleEffect(e) {
-    let target = e.target
-    let rect = target.getBoundingClientRect()
-    let ripple = target.querySelector('.ripple')
-    
-    if (!ripple) {
-        ripple = document.createElement('span')
-        ripple.className = 'ripple'
-        ripple.style.height = ripple.style.width = Math.max(rect.width, rect.height) + 'px'
+$('.btn').forEach(el => {
+    el.addEventListener('mousedown', function(e) {
+
+        let ripple = document.createElement('span')
+        ripple.className = 'btn-ripple'
         this.appendChild(ripple)
-    }
-    
-    ripple.classList.remove('show')
-    let top = e.pageY - rect.top - ripple.offsetHeight / 2 - document.body.scrollTop
-    let left = e.pageX - rect.left - ripple.offsetWidth / 2 - document.body.scrollLeft
-    ripple.style.top = top + 'px'
-    ripple.style.left = left + 'px'
-    ripple.classList.add('show')
-    return false
-}
 
-rippleElement.forEach(ripple => {
-    ripple.addEventListener('click', rippleEffect, false)
+        let rect = this.getBoundingClientRect()
+
+        let width = rect.width
+        let height = rect.height
+
+        let posX = e.pageX - rect.left
+        let posY = e.pageY - rect.top
+
+        let rippleStyle = new RippleStyle(width, height, posX, posY)
+
+        ripple.style.width = `${rippleStyle.width}px`
+        ripple.style.height = `${rippleStyle.height}px`
+        ripple.style.top = `${rippleStyle.top}px`
+        ripple.style.left = `${rippleStyle.left}px`
+
+        ripple.addEventListener('animationend', function () {
+            this.remove()
+        })
+    })
 })
+
+function RippleStyle(width, height, posX, posY) {
+    this.width = (width <= height) ? height : width
+    this.height = (width <= height) ? height : width
+    this.top = posY - (this.height * 0.5)
+    this.left = posX - (this.width * 0.5)
+}
